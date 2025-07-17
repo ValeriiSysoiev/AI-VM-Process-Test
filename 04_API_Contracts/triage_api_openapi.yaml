@@ -1,0 +1,50 @@
+---
+openapi: 3.0.0
+info:
+  title: Triage API
+  version: 1.0.0
+paths:
+  /api/triage:
+    post:
+      summary: Triage a vulnerability finding
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../03_DataSchemas/finding_schema.json'
+            example:
+              vuln_id: CVE-2025-12345
+              scanner: Qualys
+              asset_id: SRV-001
+              risk_rating: High
+              description: "Buffer overflow in ..."
+              date_detected: "2025-07-07"
+              enrichment:
+                asset_owner: jdoe@company.com
+                business_criticality: Critical
+              risk_score: 85
+              status:
+                enum: [Pending, Approved, Resolved]
+                example: Pending
+      responses:
+        '200':
+          description: Risk score generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  vuln_id:
+                    type: string
+                  risk_score:
+                    type: integer
+                  recommended_action:
+                    type: string
+                  explanation:
+                    type: string
+              example:
+                vuln_id: CVE-2025-12345
+                risk_score: 92
+                recommended_action: "Create ticket"
+                explanation: "Critical vuln on a core server with exploit in the wild."

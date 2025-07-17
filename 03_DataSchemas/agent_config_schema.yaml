@@ -1,0 +1,111 @@
+# Sample agent configuration demonstrating required fields
+example:
+  version: 1
+  orchestrator:
+    workflow: basic
+  ingestion:
+    endpoint: https://scanner.example.com/api
+    api_key: APIKEY123
+    enabled: true
+  triage:
+    endpoint: https://openai.example.com/v1
+    model_name: gpt-4
+    prompt_template: default.j2
+  remediation:
+    itsm_url: https://servicenow.example.com/api
+    enabled: true
+  reporting:
+    dashboard_id: pbi-vm-dashboard
+    schedule: daily
+    recipients:
+      - security@example.com
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+title: AgentConfiguration
+type: object
+required:
+  - version
+  - ingestion
+  - triage
+  - remediation
+  - reporting
+properties:
+  version:
+    type: integer
+    description: Configuration version
+  orchestrator:
+    type: object
+    description: Settings for the orchestrator service
+    properties:
+      workflow:
+        type: string
+        description: Name of the workflow to execute
+      retry_policy:
+        type: integer
+        description: Number of retries for agent calls
+    additionalProperties: true
+  ingestion:
+    type: object
+    required: [endpoint, api_key, enabled]
+    properties:
+      endpoint:
+        type: string
+        format: uri
+        description: API base URL of the scanner
+      api_key:
+        type: string
+        description: Authentication token for scanner
+      enabled:
+        type: boolean
+        description: Whether the agent is active
+      polling_schedule:
+        type: string
+        description: Cron or interval string
+  triage:
+    type: object
+    required: [endpoint, model_name]
+    properties:
+      endpoint:
+        type: string
+        format: uri
+        description: LLM or scoring service endpoint
+      model_name:
+        type: string
+        description: Deployed model name
+      prompt_template:
+        type: string
+        description: Path to prompt template
+  remediation:
+    type: object
+    required: [itsm_url, enabled]
+    properties:
+      itsm_url:
+        type: string
+        format: uri
+        description: ITSM API base URL
+      username:
+        type: string
+        description: Service account username
+      password:
+        type: string
+        description: Service account password
+      enabled:
+        type: boolean
+        description: Whether the agent is active
+  reporting:
+    type: object
+    required: [dashboard_id]
+    properties:
+      dashboard_id:
+        type: string
+        description: Power BI or dashboard identifier
+      schedule:
+        type: string
+        description: Cron or interval string
+      recipients:
+        type: array
+        items:
+          type: string
+          format: email
+        description: List of report recipients
+additionalProperties: false

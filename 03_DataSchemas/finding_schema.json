@@ -1,0 +1,14 @@
+{
+  "vuln_id": "CVE-2025-12345",
+  "scanner": "Qualys",
+  "asset_id": "SRV-001",
+  "risk_rating": "High",
+  "description": "Buffer overflow in ...",
+  "date_detected": "2025-07-07",
+  "enrichment": {
+    "asset_owner": "jdoe@company.com",
+    "business_criticality": "Critical"
+  },
+  "risk_score": 85,
+  "status": "Pending | Approved | Resolved"
+}

@@ -1,0 +1,52 @@
+---
+openapi: 3.0.0
+info:
+  title: Ingestion API
+  version: 1.0.0
+paths:
+  /api/ingest:
+    post:
+      summary: Ingest vulnerability findings
+      requestBody:
+        required: true
+        content:
+          application/json:
+              schema:
+                $ref: '../03_DataSchemas/finding_schema.json'
+              example:
+                vuln_id: CVE-2025-12345
+                scanner: Qualys
+                asset_id: SRV-001
+                risk_rating: High
+                description: "Buffer overflow in ..."
+                date_detected: "2025-07-07"
+                enrichment:
+                  asset_owner: jdoe@company.com
+                  business_criticality: Critical
+                risk_score: 85
+                status:
+                  enum: [Pending, Approved, Resolved]
+                  example: Pending
+      responses:
+        '200':
+          description: Successful ingestion
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '../03_DataSchemas/finding_schema.json'
+              example:
+                - vuln_id: CVE-2025-12345
+                  scanner: Qualys
+                  asset_id: SRV-001
+                  risk_rating: High
+                  description: "Buffer overflow in ..."
+                  date_detected: "2025-07-07"
+                  enrichment:
+                    asset_owner: jdoe@company.com
+                    business_criticality: Critical
+                  risk_score: 85
+                  status:
+                    enum: [Pending, Approved, Resolved]
+                    example: Pending

@@ -1,0 +1,35 @@
+---
+services:
+  orchestrator:
+    project: ./src/orchestrator
+    host: containerapp
+    language: python
+  frontend:
+    project: ./src/frontend
+    host: containerapp
+    language: python
+  ingestion_agents:
+    project: ./src/agents/ingestion
+    host: containerapp
+    language: python
+  triage_agents:
+    project: ./src/agents/triage
+    host: containerapp
+    language: python
+  remediation_agents:
+    project: ./src/agents/remediation
+    host: containerapp
+    language: python
+  reporting_agents:
+    project: ./src/agents/reporting
+    host: containerapp
+    language: python
+
+docker:
+  registry: $(containerRegistryLoginServer)
+
+# To specify your deployment resource group, uncomment and set:
+# infra:
+#   provider: bicep
+#   path: 05_Infrastructure
+#   resourceGroup: MyResourceGroupName

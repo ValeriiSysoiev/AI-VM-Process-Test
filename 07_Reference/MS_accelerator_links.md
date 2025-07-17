@@ -1,0 +1,3 @@
+- [Microsoft Multi-Agent Custom Automation Engine Solution Accelerator](https://github.com/microsoft/Multi-Agent-Custom-Automation-Engine-Solution-Accelerator)
+- [Azure AI Foundry](https://learn.microsoft.com/en-us/azure/ai-services/foundry/)
+- [GPT-4.1 Prompting Guide](https://cookbook.openai.com/examples/gpt4-1_prompting_guide)
