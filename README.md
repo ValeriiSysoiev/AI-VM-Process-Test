@@ -106,6 +106,20 @@ After installing the dependencies you can run the unit tests to verify the stub 
 pytest
 ```
 
+### Testing Nexpose Connectivity
+The ingestion agent provides a helper script to verify that the Nexpose API is
+reachable and that your Key Vault secrets are configured correctly.
+
+Set the `KEY_VAULT_NAME` environment variable to the vault containing the
+`nexpose-api-url`, `nexpose-user`, and `nexpose-password` secrets and run:
+
+```bash
+python scripts/nexpose_check.py
+```
+
+If the script succeeds it prints the number of assets returned and a snippet of
+the response.
+
 ### Running Frontend Tests
 To execute the UI test suite locally:
 
