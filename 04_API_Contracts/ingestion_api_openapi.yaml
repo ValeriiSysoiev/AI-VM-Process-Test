@@ -1,5 +1,11 @@
 ---
 openapi: 3.0.0
+"""
+The Qualys Ingestion Agent is used as the Nexpose/InsightVM ingestion agent.
+Connection details and credentials are retrieved from Azure Key Vault using the
+secrets `nexpose-api-url`, `nexpose-user` and `nexpose-password`. All
+credentials must be managed only via Key Vault.
+"""
 info:
   title: Ingestion API
   version: 1.0.0
