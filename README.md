@@ -8,7 +8,7 @@ The Vulnerability Management Orchestration Template is a modular, AI-powered aut
 See full architecture and data flows in [MRA_Vulnerability_Management.md](01_Architecture/MRA_Vulnerability_Management.md).
 
 **Key Capabilities**
-- Multi-source ingestion (Qualys, Wiz, Defender, WebApp Scanners)
+- Multi-source ingestion (Nexpose, Wiz, Defender, WebApp Scanners)
 - Modular AI agent orchestration (Microsoft Foundry + Azure OpenAI)
 - Human-in-the-loop risk validation and approval
 - Automated ITSM integration for remediation (ServiceNow, Jira)
@@ -17,6 +17,8 @@ See full architecture and data flows in [MRA_Vulnerability_Management.md](01_Arc
 
 The web-based UI included here is repurposed from a Microsoft solution
 accelerator and now acts as the front-end orchestrator for this template.
+
+For this deployment, the ingestion agent connects to **Nexpose (InsightVM)** using secrets stored in Azure Key Vault.
 
 ### Workflow Stages and Agent Roles
 

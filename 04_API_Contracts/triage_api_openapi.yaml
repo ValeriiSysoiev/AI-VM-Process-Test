@@ -15,7 +15,7 @@ paths:
               $ref: '../03_DataSchemas/finding_schema.json'
             example:
               vuln_id: CVE-2025-12345
-              scanner: Qualys
+              scanner: Nexpose
               asset_id: SRV-001
               risk_rating: High
               description: "Buffer overflow in ..."

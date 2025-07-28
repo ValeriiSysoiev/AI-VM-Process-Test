@@ -33,7 +33,7 @@ Orchestrator AI Agent [icon: robot, label: "FastAPI Orchestrator AI Agent"]
 
 Ingestion Agents [color: blue, icon: robot] {
 
-Qualys AI Agent [icon: robot, label: "Qualys"]
+Nexpose AI Agent [icon: robot, label: "Nexpose"]
 
 Wiz AI Agent [icon: robot, label: "Wiz"]
 
@@ -139,7 +139,7 @@ Ticketing Agent --> Azure Cosmos DB : "log ticket"
 
 // KEY VAULT SECRETS (dotted arrows)
 
-"Qualys AI Agent ...> Azure Key Vault : "get secrets""
+"Nexpose AI Agent ...> Azure Key Vault : "get secrets""
 
 "Wiz AI Agent ...> Azure Key Vault : "get secrets""
 
