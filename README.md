@@ -18,7 +18,11 @@ See full architecture and data flows in [MRA_Vulnerability_Management.md](01_Arc
 The web-based UI included here is repurposed from a Microsoft solution
 accelerator and now acts as the front-end orchestrator for this template.
 
-For this deployment, the ingestion agent connects to **Nexpose (InsightVM)** using secrets stored in Azure Key Vault.
+For this deployment, the **Qualys Ingestion Agent** functions as the
+Nexpose/InsightVM ingestion agent. Connection details and credentials are
+fetched from Azure Key Vault using the secrets `nexpose-api-url`,
+`nexpose-user`, and `nexpose-password`. **All credentials are managed only via
+Key Vault.**
 
 ### Workflow Stages and Agent Roles
 
