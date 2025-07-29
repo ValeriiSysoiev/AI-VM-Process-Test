@@ -3,10 +3,16 @@ from typing import List
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from src.agents.ingestion.ingestion_agent import Finding
-from src.agents.remediation import RemediationAgent
-from src.agents.reporting import ReportingAgent
-from src.agents.triage import TriageAgent
+try:
+    from src.agents.ingestion.ingestion_agent import Finding
+    from src.agents.remediation import RemediationAgent
+    from src.agents.reporting import ReportingAgent
+    from src.agents.triage import TriageAgent
+except ModuleNotFoundError:  # fall back to local copies when built standalone
+    from .agents.ingestion.ingestion_agent import Finding
+    from .agents.remediation import RemediationAgent
+    from .agents.reporting import ReportingAgent
+    from .agents.triage import TriageAgent
 
 from . import Orchestrator
 

@@ -51,6 +51,36 @@ uv pip install -r src/frontend/uv.lock
 ```
 Dockerfiles are provided for each backend agent under `src/agents/*` and in
 `src/orchestrator` to build container images consistently.
+
+## Building and Pushing Images
+Run `docker build .` from each service directory to create an image. Replace
+`<registry>` with your Azure Container Registry name:
+
+```bash
+cd src/agents/ingestion
+docker build -t <registry>.azurecr.io/ingestion:latest .
+docker push <registry>.azurecr.io/ingestion:latest
+
+cd ../remediation
+docker build -t <registry>.azurecr.io/remediation:latest .
+docker push <registry>.azurecr.io/remediation:latest
+
+cd ../reporting
+docker build -t <registry>.azurecr.io/reporting:latest .
+docker push <registry>.azurecr.io/reporting:latest
+
+cd ../triage
+docker build -t <registry>.azurecr.io/triage:latest .
+docker push <registry>.azurecr.io/triage:latest
+
+cd ../../orchestrator
+docker build -t <registry>.azurecr.io/orchestrator:latest .
+docker push <registry>.azurecr.io/orchestrator:latest
+
+cd ../frontend
+docker build -t <registry>.azurecr.io/frontend:latest .
+docker push <registry>.azurecr.io/frontend:latest
+```
 4. **Install frontend dependencies and run tests:**
    ```bash
    cd src/frontend
