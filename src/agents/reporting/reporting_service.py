@@ -3,6 +3,7 @@ from . import ReportingAgent
 
 app = FastAPI(title="Reporting Agent API")
 
+
 @app.get("/api/report")
 def report_endpoint() -> dict:
     """Return a simple report."""

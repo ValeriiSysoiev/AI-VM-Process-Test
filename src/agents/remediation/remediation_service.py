@@ -3,6 +3,7 @@ from . import RemediationAgent
 
 app = FastAPI(title="Remediation Agent API")
 
+
 @app.post("/api/remediate")
 def remediate_endpoint(payload: dict) -> dict:
     """Create a remediation ticket."""
