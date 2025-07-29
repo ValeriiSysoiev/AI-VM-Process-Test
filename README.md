@@ -49,8 +49,8 @@ can optionally install using `uv` locally:
 ```bash
 uv pip install -r src/frontend/uv.lock
 ```
-Dockerfiles are provided under `src/orchestrator` and `src/agents/ingestion` to
-build backend containers consistently.
+Dockerfiles are provided for each backend agent under `src/agents/*` and in
+`src/orchestrator` to build container images consistently.
 4. **Install frontend dependencies and run tests:**
    ```bash
    cd src/frontend
