@@ -63,9 +63,17 @@ build backend containers consistently.
 6. **Review and update `/05_Infrastructure/` Bicep templates** as needed. The
    container app module exposes parameters for `orchestratorImage`,
    `ingestionImage`, `minReplicas`, `maxReplicas`, `cpu`, and `memory` which can
-   be customized. Replace the default `containerapps-helloworld` images with the
-   container images you build and push to your Azure Container Registry, or
-   supply them at deploy time using the `--infra-parameter` option.
+   be customized. Defaults in `main.bicep` reference images at
+   `${containerRegistryName}.azurecr.io/<service>:latest`. Build and push these
+   images to your Azure Container Registry before provisioning, or supply
+   alternate tags at deploy time using the `--infra-parameter` option. For
+   example:
+
+   ```bash
+   REGISTRY=<your_registry>.azurecr.io
+   docker build -t $REGISTRY/orchestrator:latest src/orchestrator
+   docker push $REGISTRY/orchestrator:latest
+   ```
 7. **Add your resource group configuration**
    After creating a new repo from this template, add an `infra:` section to
    `azure.yaml` specifying your Azure Resource Group before running `azd up`:
@@ -76,8 +84,9 @@ build backend containers consistently.
      path: 05_Infrastructure
      resourceGroup: MyResourceGroupName
    ```
-8. **Run `azd up`** (or `./06_DevOps/deployment_scripts/azd_up.sh`) to
-   provision Azure resources and deploy code.
+8. **Run `azd up`** (or `./06_DevOps/deployment_scripts/azd_up.sh`) once your
+   images are pushed to the registry. This provisions Azure resources and
+   deploys the containers.
 9. **Access the User Portal** and test ingestion, triage, and remediation workflows.
 10. **Review logs and dashboards** in Application Insights, Log Analytics, and Power BI.
 
@@ -166,8 +175,9 @@ the container apps:
 Defaults are defined in [`main.bicep`](05_Infrastructure/main.bicep). These
 include image paths using your Azure Container Registry name followed by the
 service (for example `${containerRegistryName}.azurecr.io/orchestrator:latest`).
-Override these values when running `azd up` with `--infra-parameter` or by
-editing the file directly. The helper script
+Container images **must** exist in the registry before you provision the
+infrastructure. Override the defaults at deploy time with `--infra-parameter` or
+by editing the file directly if you have pushed images with different tags. The helper script
 `./06_DevOps/deployment_scripts/azd_up.sh` shows one way to pass the parameters.
 
 ### Service Tagging Requirement
