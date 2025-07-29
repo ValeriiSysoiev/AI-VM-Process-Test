@@ -87,6 +87,39 @@ EXAMPLE_FINDING = {
 }
 
 
+def _parse_assets(data: dict) -> List[Finding]:
+    """Convert Nexpose asset data into ``Finding`` records.
+
+    Because the Nexpose API returns a large JSON structure, this helper pulls
+    a minimal set of fields to populate the ``Finding`` model. Any missing
+    values fall back to sensible defaults so the ingestion agent can operate
+    even if certain keys are unavailable.
+    """
+
+    findings: List[Finding] = []
+    for asset in data.get("resources", []):
+        vuln_id = str(asset.get("id", "unknown"))
+        enrichment = Enrichment(
+            asset_owner=str(asset.get("owner", "unknown")),
+            business_criticality=str(asset.get("importance", "Unknown")),
+        )
+        finding = Finding(
+            vuln_id=vuln_id,
+            scanner="Nexpose",
+            asset_id=str(asset.get("id", "unknown")),
+            risk_rating=str(asset.get("riskScore", "Unknown")),
+            description=str(asset.get("host-name", asset.get("ip", "Nexpose asset"))),
+            date_detected=str(
+                asset.get("lastScanTime", asset.get("last_assessed_for_vulnerabilities", ""))
+            ),
+            enrichment=enrichment,
+            risk_score=int(asset.get("riskScore", 0)),
+            status="Pending",
+        )
+        findings.append(finding)
+    return findings
+
+
 def _get_secret(secret_name: str) -> Optional[str]:
     """Retrieve a secret from Azure Key Vault."""
     vault_name = os.getenv("KEY_VAULT_NAME")
@@ -107,7 +140,7 @@ def _get_secret(secret_name: str) -> Optional[str]:
 
 
 async def fetch_nexpose_assets() -> Optional[dict]:
-    """Fetch a sample asset list from Nexpose."""
+    """Fetch asset information from the Nexpose API."""
     api_url = _get_secret("nexpose-api-url")
     user = _get_secret("nexpose-user")
     password = _get_secret("nexpose-password")
@@ -142,5 +175,9 @@ async def ingest_finding(finding: Finding) -> List[Finding]:
     agent might return.
     """
 
-    await fetch_nexpose_assets()
+    data = await fetch_nexpose_assets()
+    if data:
+        parsed = _parse_assets(data)
+        if parsed:
+            return parsed
     return [Finding(**EXAMPLE_FINDING)]
