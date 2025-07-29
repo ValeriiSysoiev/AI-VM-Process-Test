@@ -69,6 +69,7 @@ def healthcheck() -> dict:
     """Basic healthcheck endpoint."""
     return {"status": "ok"}
 
+
 # Example finding returned by the endpoint
 EXAMPLE_FINDING = {
     "vuln_id": "CVE-2025-12345",
