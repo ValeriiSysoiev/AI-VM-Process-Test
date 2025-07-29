@@ -3,6 +3,7 @@ from typing import List, Optional
 import httpx
 import logging
 import os
+import traceback
 
 from azure.identity import DefaultAzureCredential
 from azure.keyvault.secrets import SecretClient
@@ -129,9 +130,6 @@ def _get_secret(secret_name: str) -> Optional[str]:
     except Exception as exc:  # noqa: BLE001
         logging.error("Failed to retrieve secret %s: %s", secret_name, exc)
         return None
-
-
-import traceback
 
 
 async def fetch_nexpose_assets() -> Optional[dict]:
