@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from . import ReportingAgent
+from src.orchestrator.agents.reporting.reporting_agent import ReportingAgent
 
 app = FastAPI(title="Reporting Agent API")
 

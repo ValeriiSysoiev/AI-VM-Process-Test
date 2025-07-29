@@ -1,12 +1,12 @@
 """Agent package exposing individual agent classes."""
 
-from .approval import ApprovalAgent
-from .deduplication import DeduplicationAgent
-from .enrichment import EnrichmentAgent
-from .ingestion import IngestionAgent
-from .remediation import RemediationAgent
-from .reporting import ReportingAgent
-from .triage import TriageAgent
+from src.agents.approval import ApprovalAgent
+from src.agents.deduplication import DeduplicationAgent
+from src.agents.enrichment import EnrichmentAgent
+from src.agents.ingestion import IngestionAgent
+from src.agents.remediation import RemediationAgent
+from src.agents.reporting import ReportingAgent
+from src.agents.triage import TriageAgent
 
 __all__ = [
     "IngestionAgent",

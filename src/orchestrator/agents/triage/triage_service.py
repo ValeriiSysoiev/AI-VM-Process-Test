@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from . import TriageAgent
+from src.orchestrator.agents.triage.triage_agent import TriageAgent
 
 app = FastAPI(title="Triage Agent API")
 
