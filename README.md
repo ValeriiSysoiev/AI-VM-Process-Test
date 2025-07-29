@@ -62,7 +62,7 @@ build backend containers consistently.
 5. **Copy `.env.sample` to `.env`** and fill in environment-specific secrets and endpoints.
 6. **Review and update `/05_Infrastructure/` Bicep templates** as needed. The
   container app module exposes parameters for `orchestratorImage`,
-  `ingestionImage`, `minReplicas`, `maxReplicas`, `cpu`, and `memory` which can
+  `ingestion_agentsImage`, `minReplicas`, `maxReplicas`, `cpu`, and `memory` which can
   be customized. A `useSampleImages` flag lets you deploy sample
   `containerapps-helloworld` containers when you haven't built your own images.
   Replace the defaults with images pushed to your Azure Container Registry or
@@ -159,7 +159,7 @@ Run `azd auth login --client-id $AZURE_CLIENT_ID --client-secret $AZURE_CLIENT_S
 The Bicep templates under `/05_Infrastructure/` expose additional parameters for
 the container apps:
 
- - `orchestratorImage` and `ingestionImage` – container images to deploy.
+ - `orchestratorImage` and `ingestion_agentsImage` – container images to deploy.
  - `minReplicas` and `maxReplicas` – scale settings for each app.
  - `cpu` and `memory` – resource allocation per replica (e.g. `0.5` CPU and
    `1Gi` of memory).

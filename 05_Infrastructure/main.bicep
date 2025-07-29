@@ -14,19 +14,19 @@ param useSampleImages bool = false
 param orchestratorImage string = useSampleImages
   ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
   : '${containerRegistryName}.azurecr.io/orchestrator:latest'
-param ingestionImage string = useSampleImages
+param ingestion_agentsImage string = useSampleImages
   ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
   : '${containerRegistryName}.azurecr.io/ingestion:latest'
 param frontendImage string = useSampleImages
   ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
   : '${containerRegistryName}.azurecr.io/frontend:latest'
-param triageImage string = useSampleImages
+param triage_agentsImage string = useSampleImages
   ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
   : '${containerRegistryName}.azurecr.io/triage:latest'
-param remediationImage string = useSampleImages
+param remediation_agentsImage string = useSampleImages
   ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
   : '${containerRegistryName}.azurecr.io/remediation:latest'
-param reportingImage string = useSampleImages
+param reporting_agentsImage string = useSampleImages
   ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
   : '${containerRegistryName}.azurecr.io/reporting:latest'
 param minReplicas int = 1
@@ -82,11 +82,11 @@ module apps './containerapps.bicep' = {
     reportingName: reportingAppName
     useSampleImages: useSampleImages
     orchestratorImage: orchestratorImage
-    ingestionImage: ingestionImage
+    ingestion_agentsImage: ingestion_agentsImage
     frontendImage: frontendImage
-    triageImage: triageImage
-    remediationImage: remediationImage
-    reportingImage: reportingImage
+    triage_agentsImage: triage_agentsImage
+    remediation_agentsImage: remediation_agentsImage
+    reporting_agentsImage: reporting_agentsImage
     minReplicas: minReplicas
     maxReplicas: maxReplicas
     cpu: cpu
