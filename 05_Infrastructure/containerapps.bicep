@@ -85,7 +85,8 @@ resource ingestion 'Microsoft.App/containerApps@2023-05-01' = {
   name: ingestionName
   location: location
   tags: {
-    'azd-service-name': 'ingestion_agents'
+    // Service name must match azure.yaml for azd deployments
+    'azd-service-name': 'ingestion'
   }
   properties: {
     environmentId: env.id
@@ -169,7 +170,8 @@ resource triage 'Microsoft.App/containerApps@2023-05-01' = {
   name: triageName
   location: location
   tags: {
-    'azd-service-name': 'triage_agents'
+    // Align tag with service name in azure.yaml
+    'azd-service-name': 'triage'
   }
   properties: {
     environmentId: env.id
@@ -211,7 +213,8 @@ resource remediation 'Microsoft.App/containerApps@2023-05-01' = {
   name: remediationName
   location: location
   tags: {
-    'azd-service-name': 'remediation_agents'
+    // Align tag with service name in azure.yaml
+    'azd-service-name': 'remediation'
   }
   properties: {
     environmentId: env.id
@@ -253,7 +256,8 @@ resource reporting 'Microsoft.App/containerApps@2023-05-01' = {
   name: reportingName
   location: location
   tags: {
-    'azd-service-name': 'reporting_agents'
+    // Align tag with service name in azure.yaml
+    'azd-service-name': 'reporting'
   }
   properties: {
     environmentId: env.id
