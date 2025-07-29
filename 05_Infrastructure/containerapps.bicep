@@ -6,12 +6,25 @@ param frontendAppName string
 param triageName string
 param remediationName string
 param reportingName string
-param orchestratorImage string = '${registryLoginServer}/orchestrator:latest'
-param ingestionImage string = '${registryLoginServer}/ingestion:latest'
-param frontendImage string = '${registryLoginServer}/frontend:latest'
-param triageImage string = '${registryLoginServer}/triage:latest'
-param remediationImage string = '${registryLoginServer}/remediation:latest'
-param reportingImage string = '${registryLoginServer}/reporting:latest'
+param useSampleImages bool = false
+param orchestratorImage string = useSampleImages
+  ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+  : '${registryLoginServer}/orchestrator:latest'
+param ingestionImage string = useSampleImages
+  ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+  : '${registryLoginServer}/ingestion:latest'
+param frontendImage string = useSampleImages
+  ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+  : '${registryLoginServer}/frontend:latest'
+param triageImage string = useSampleImages
+  ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+  : '${registryLoginServer}/triage:latest'
+param remediationImage string = useSampleImages
+  ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+  : '${registryLoginServer}/remediation:latest'
+param reportingImage string = useSampleImages
+  ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+  : '${registryLoginServer}/reporting:latest'
 param minReplicas int = 1
 param maxReplicas int = 1
 param cpu string = '0.5'

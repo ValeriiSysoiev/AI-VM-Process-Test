@@ -10,12 +10,25 @@ param cosmosAccountName string
 param keyVaultName string
 param openAiAccountName string
 param containerRegistryName string
-param orchestratorImage string = '${containerRegistryName}.azurecr.io/orchestrator:latest'
-param ingestionImage string = '${containerRegistryName}.azurecr.io/ingestion:latest'
-param frontendImage string = '${containerRegistryName}.azurecr.io/frontend:latest'
-param triageImage string = '${containerRegistryName}.azurecr.io/triage:latest'
-param remediationImage string = '${containerRegistryName}.azurecr.io/remediation:latest'
-param reportingImage string = '${containerRegistryName}.azurecr.io/reporting:latest'
+param useSampleImages bool = false
+param orchestratorImage string = useSampleImages
+  ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+  : '${containerRegistryName}.azurecr.io/orchestrator:latest'
+param ingestionImage string = useSampleImages
+  ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+  : '${containerRegistryName}.azurecr.io/ingestion:latest'
+param frontendImage string = useSampleImages
+  ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+  : '${containerRegistryName}.azurecr.io/frontend:latest'
+param triageImage string = useSampleImages
+  ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+  : '${containerRegistryName}.azurecr.io/triage:latest'
+param remediationImage string = useSampleImages
+  ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+  : '${containerRegistryName}.azurecr.io/remediation:latest'
+param reportingImage string = useSampleImages
+  ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+  : '${containerRegistryName}.azurecr.io/reporting:latest'
 param minReplicas int = 1
 param maxReplicas int = 1
 param cpu string = '0.5'
@@ -67,6 +80,7 @@ module apps './containerapps.bicep' = {
     triageName: triageAppName
     remediationName: remediationAppName
     reportingName: reportingAppName
+    useSampleImages: useSampleImages
     orchestratorImage: orchestratorImage
     ingestionImage: ingestionImage
     frontendImage: frontendImage
