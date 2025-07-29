@@ -10,19 +10,19 @@ param useSampleImages bool = false
 param orchestratorImage string = useSampleImages
   ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
   : '${registryLoginServer}/orchestrator:latest'
-param ingestionImage string = useSampleImages
+param ingestion_agentsImage string = useSampleImages
   ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
   : '${registryLoginServer}/ingestion:latest'
 param frontendImage string = useSampleImages
   ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
   : '${registryLoginServer}/frontend:latest'
-param triageImage string = useSampleImages
+param triage_agentsImage string = useSampleImages
   ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
   : '${registryLoginServer}/triage:latest'
-param remediationImage string = useSampleImages
+param remediation_agentsImage string = useSampleImages
   ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
   : '${registryLoginServer}/remediation:latest'
-param reportingImage string = useSampleImages
+param reporting_agentsImage string = useSampleImages
   ? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
   : '${registryLoginServer}/reporting:latest'
 param minReplicas int = 1
@@ -108,7 +108,7 @@ resource ingestion 'Microsoft.App/containerApps@2023-05-01' = {
       containers: [
         {
           name: ingestionName
-          image: ingestionImage
+          image: ingestion_agentsImage
           resources: {
             cpu: json(cpu)
             memory: memory
@@ -192,7 +192,7 @@ resource triage 'Microsoft.App/containerApps@2023-05-01' = {
       containers: [
         {
           name: triageName
-          image: triageImage
+          image: triage_agentsImage
           resources: {
             cpu: json(cpu)
             memory: memory
@@ -234,7 +234,7 @@ resource remediation 'Microsoft.App/containerApps@2023-05-01' = {
       containers: [
         {
           name: remediationName
-          image: remediationImage
+          image: remediation_agentsImage
           resources: {
             cpu: json(cpu)
             memory: memory
@@ -276,7 +276,7 @@ resource reporting 'Microsoft.App/containerApps@2023-05-01' = {
       containers: [
         {
           name: reportingName
-          image: reportingImage
+          image: reporting_agentsImage
           resources: {
             cpu: json(cpu)
             memory: memory
