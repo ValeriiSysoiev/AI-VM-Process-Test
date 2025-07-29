@@ -1,12 +1,3 @@
-try:
-    from src.templates import BaseAgent
-except ModuleNotFoundError:  # allow running standalone
-    from templates import BaseAgent
+from src.agents.reporting.reporting_agent import ReportingAgent
 
-
-class ReportingAgent(BaseAgent):
-    """Generates reports and dashboards."""
-
-    def report(self, data):
-        """Return a simple summary report."""
-        return {"total_items": len(data)}
+__all__ = ["ReportingAgent"]

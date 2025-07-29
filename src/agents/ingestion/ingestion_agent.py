@@ -88,14 +88,6 @@ EXAMPLE_FINDING = {
 
 
 def _parse_assets(data: dict) -> List[Finding]:
-    """Convert Nexpose asset data into ``Finding`` records.
-
-    Because the Nexpose API returns a large JSON structure, this helper pulls
-    a minimal set of fields to populate the ``Finding`` model. Any missing
-    values fall back to sensible defaults so the ingestion agent can operate
-    even if certain keys are unavailable.
-    """
-
     findings: List[Finding] = []
     for asset in data.get("resources", []):
         vuln_id = str(asset.get("id", "unknown"))
@@ -139,25 +131,24 @@ def _get_secret(secret_name: str) -> Optional[str]:
         return None
 
 
+import traceback
+
+
 async def fetch_nexpose_assets() -> Optional[dict]:
-    """Fetch asset information from the Nexpose API."""
     api_url = _get_secret("nexpose-api-url")
     user = _get_secret("nexpose-user")
     password = _get_secret("nexpose-password")
-
     if not all([api_url, user, password]):
         return None
-
     url = f"{api_url.rstrip('/')}/api/3/assets"
-
     try:
         async with httpx.AsyncClient() as client:
             response = await client.get(url, auth=(user, password), timeout=10)
             response.raise_for_status()
             logging.info("Nexpose assets response snippet: %s", response.text[:200])
             return response.json()
-    except Exception as exc:  # noqa: BLE001
-        logging.error("Error calling Nexpose API: %s", exc)
+    except Exception as exc:
+        logging.error("Error calling Nexpose API: %s\n%s", exc, traceback.format_exc())
         return None
 
 

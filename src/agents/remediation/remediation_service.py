@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from . import RemediationAgent
+from src.agents.remediation.remediation_agent import RemediationAgent
 
 app = FastAPI(title="Remediation Agent API")
 

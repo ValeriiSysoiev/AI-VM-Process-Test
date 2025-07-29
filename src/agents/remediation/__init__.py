@@ -1,13 +1,3 @@
-try:
-    from src.templates import BaseAgent
-except ModuleNotFoundError:  # allow running standalone
-    from templates import BaseAgent
+from src.agents.remediation.remediation_agent import RemediationAgent
 
-
-class RemediationAgent(BaseAgent):
-    """Creates tickets in ITSM platforms."""
-
-    def remediate(self, finding: dict):
-        """Return a dummy ticket for the finding."""
-        ticket_id = f"TICKET-{finding.get('vuln_id', '0')}"
-        return {"ticket_id": ticket_id, "status": "created"}
+__all__ = ["RemediationAgent"]
