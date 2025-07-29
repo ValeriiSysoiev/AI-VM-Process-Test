@@ -14,8 +14,14 @@ ENV_NAME="${ENV_NAME:-vm-env}"
 LOCATION="${LOCATION:-eastus}"
 SUBSCRIPTION="${AZURE_SUBSCRIPTION_ID:-}"
 
-ORCH_IMG="${ORCHESTRATOR_IMAGE:-mcr.microsoft.com/azuredocs/containerapps-helloworld:latest}"
-INGEST_IMG="${INGESTION_IMAGE:-mcr.microsoft.com/azuredocs/containerapps-helloworld:latest}"
+USE_SAMPLE_IMAGES="${USE_SAMPLE_IMAGES:-}"
+if [ -z "$USE_SAMPLE_IMAGES" ]; then
+  if [[ "${ENV_NAME,,}" =~ prod ]]; then
+    USE_SAMPLE_IMAGES="false"
+  else
+    USE_SAMPLE_IMAGES="true"
+  fi
+fi
 
 ARGS=(--environment "$ENV_NAME" --location "$LOCATION")
 if [ -n "$SUBSCRIPTION" ]; then
@@ -23,8 +29,7 @@ if [ -n "$SUBSCRIPTION" ]; then
 fi
 
 azd up "${ARGS[@]}" \
-  --infra-parameter orchestratorImage="$ORCH_IMG" \
-  --infra-parameter ingestionImage="$INGEST_IMG" \
+  --infra-parameter useSampleImages="$USE_SAMPLE_IMAGES" \
   --infra-parameter minReplicas=1 \
   --infra-parameter maxReplicas=1 \
   --infra-parameter cpu='0.5' \

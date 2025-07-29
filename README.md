@@ -61,11 +61,12 @@ build backend containers consistently.
    The Jest-based tests automatically launch `frontend_server.py` to serve the UI during the run.
 5. **Copy `.env.sample` to `.env`** and fill in environment-specific secrets and endpoints.
 6. **Review and update `/05_Infrastructure/` Bicep templates** as needed. The
-   container app module exposes parameters for `orchestratorImage`,
-   `ingestionImage`, `minReplicas`, `maxReplicas`, `cpu`, and `memory` which can
-   be customized. Replace the default `containerapps-helloworld` images with the
-   container images you build and push to your Azure Container Registry, or
-   supply them at deploy time using the `--infra-parameter` option.
+  container app module exposes parameters for `orchestratorImage`,
+  `ingestionImage`, `minReplicas`, `maxReplicas`, `cpu`, and `memory` which can
+  be customized. A `useSampleImages` flag lets you deploy sample
+  `containerapps-helloworld` containers when you haven't built your own images.
+  Replace the defaults with images pushed to your Azure Container Registry or
+  supply parameters at deploy time using the `--infra-parameter` option.
 7. **Add your resource group configuration**
    After creating a new repo from this template, add an `infra:` section to
    `azure.yaml` specifying your Azure Resource Group before running `azd up`:
