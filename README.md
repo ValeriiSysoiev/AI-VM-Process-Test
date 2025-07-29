@@ -63,7 +63,9 @@ build backend containers consistently.
 6. **Review and update `/05_Infrastructure/` Bicep templates** as needed. The
    container app module exposes parameters for `orchestratorImage`,
    `ingestionImage`, `minReplicas`, `maxReplicas`, `cpu`, and `memory` which can
-   be customized.
+   be customized. Replace the default `containerapps-helloworld` images with the
+   container images you build and push to your Azure Container Registry, or
+   supply them at deploy time using the `--infra-parameter` option.
 7. **Add your resource group configuration**
    After creating a new repo from this template, add an `infra:` section to
    `azure.yaml` specifying your Azure Resource Group before running `azd up`:
@@ -156,16 +158,17 @@ Run `azd auth login --client-id $AZURE_CLIENT_ID --client-secret $AZURE_CLIENT_S
 The Bicep templates under `/05_Infrastructure/` expose additional parameters for
 the container apps:
 
-- `orchestratorImage` and `ingestionImage` – container images to deploy.
-- `minReplicas` and `maxReplicas` – scale settings for each app.
-- `cpu` and `memory` – resource allocation per replica (e.g. `0.5` CPU and
-  `1Gi` of memory).
+ - `orchestratorImage` and `ingestionImage` – container images to deploy.
+ - `minReplicas` and `maxReplicas` – scale settings for each app.
+ - `cpu` and `memory` – resource allocation per replica (e.g. `0.5` CPU and
+   `1Gi` of memory).
 
-Defaults are defined in [`main.bicep`](05_Infrastructure/main.bicep), but you
-can override them when running `azd up` using the `--infra-parameter` option or
-by editing the file directly. The helper script
-`./06_DevOps/deployment_scripts/azd_up.sh` demonstrates how to supply these
-values.
+Defaults are defined in [`main.bicep`](05_Infrastructure/main.bicep). These
+include image paths using your Azure Container Registry name followed by the
+service (for example `${containerRegistryName}.azurecr.io/orchestrator:latest`).
+Override these values when running `azd up` with `--infra-parameter` or by
+editing the file directly. The helper script
+`./06_DevOps/deployment_scripts/azd_up.sh` shows one way to pass the parameters.
 
 ### Service Tagging Requirement
 Every service declared in `azure.yaml` must have a matching resource in the

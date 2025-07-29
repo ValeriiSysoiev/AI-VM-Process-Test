@@ -10,12 +10,12 @@ param cosmosAccountName string
 param keyVaultName string
 param openAiAccountName string
 param containerRegistryName string
-param orchestratorImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
-param ingestionImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
-param frontendImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
-param triageImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
-param remediationImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
-param reportingImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+param orchestratorImage string = '${containerRegistryName}.azurecr.io/orchestrator:latest'
+param ingestionImage string = '${containerRegistryName}.azurecr.io/ingestion:latest'
+param frontendImage string = '${containerRegistryName}.azurecr.io/frontend:latest'
+param triageImage string = '${containerRegistryName}.azurecr.io/triage:latest'
+param remediationImage string = '${containerRegistryName}.azurecr.io/remediation:latest'
+param reportingImage string = '${containerRegistryName}.azurecr.io/reporting:latest'
 param minReplicas int = 1
 param maxReplicas int = 1
 param cpu string = '0.5'

@@ -6,12 +6,12 @@ param frontendAppName string
 param triageName string
 param remediationName string
 param reportingName string
-param orchestratorImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
-param ingestionImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
-param frontendImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
-param triageImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
-param remediationImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
-param reportingImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+param orchestratorImage string = '${registryLoginServer}/orchestrator:latest'
+param ingestionImage string = '${registryLoginServer}/ingestion:latest'
+param frontendImage string = '${registryLoginServer}/frontend:latest'
+param triageImage string = '${registryLoginServer}/triage:latest'
+param remediationImage string = '${registryLoginServer}/remediation:latest'
+param reportingImage string = '${registryLoginServer}/reporting:latest'
 param minReplicas int = 1
 param maxReplicas int = 1
 param cpu string = '0.5'
